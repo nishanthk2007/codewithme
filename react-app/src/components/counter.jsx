@@ -17,16 +17,28 @@ class Counter extends Component {
 
     //Instead of writing constructor and method to get object use lambda expressions
     //arrow functions don't  remaind this keyword they will inherit it
-    handleIncrement= () => { 
+    handleIncrement= (product) => { 
+        console.log(product);
         console.log("clicked on increment", this);
         this.setState({count: this.state.count + 1});
     }
     
+    //to pass arguments from onClick event we need other function
+    //as in button we can not write this.handleIncrement({id: 1}) directly
+    // doHandleIncrement(){
+    //     this.handleIncrement({id: 1});
+    // }
+    //and after this modify handleIncrement method as below
+    //handleIncrement= (e) => { console.log(e); } --> here e is event
+    //Instead of above we can write arrow function in button tag directly
+
     render(){
         return(
             <div>
                 <span className={this.getBadgeClasses()}>{this.formatCounter()}</span>
-                <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
+                {/* <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button> */}
+                
+                <button onClick={() => this.handleIncrement(product)} className="btn btn-secondary btn-sm">Increment</button>
                 <div>
                 {this.state.tags.length === 0 && "Please add tags!"}
                 {this.renderTags()}
