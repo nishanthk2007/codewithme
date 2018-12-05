@@ -6,9 +6,18 @@ class Counter extends Component {
         tags: ['tag1','tag2','tag3']
     };
 
-    handleIncrement(){
-        console.log("clicked on increment", this); //will give undefind
-    }
+    // constructor(){
+    //     super();
+    //     this.handleIncrement = this.handleIncrement.bind(this);//able to get object of class
+    // }
+
+    // handleIncrement(){
+    //     console.log("clicked on increment",this); //will give undefind
+    // }
+
+    //Instead of writing constructor and method to get object use lambda expressions
+    //arrow functions don't  remaind this keyword they will inherit it
+    handleIncrement= () => { console.log("clicked on increment", this)}
     
     render(){
         return(
@@ -32,7 +41,6 @@ class Counter extends Component {
     getBadgeClasses() {
         let classes = "badge m-2 badge-";
         classes += this.state.count === 0 ? "warning" : "primary";
-        console.log("classes:",classes);
         return classes;
     }
 
