@@ -4,11 +4,14 @@ class Counter extends Component {
     state = {
         count: 0
     };
+    handleIncrement(){
+        console.log("clicked on increment");
+    }
     render(){
         return(
             <div>
                 <span className="{this.getBadgeClasses()}">{this.formatCounter()}</span>
-                <button className="btn btn-secondary btn-sm">Increment</button>
+                <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
             </div>
         );
 }
