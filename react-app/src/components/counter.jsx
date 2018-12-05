@@ -5,6 +5,10 @@ class Counter extends Component {
         count: 0,
         tags: ['tag1','tag2','tag3']
     };
+
+    handleIncrement(){
+        console.log("clicked on increment");
+    }
     
     render(){
         return(
