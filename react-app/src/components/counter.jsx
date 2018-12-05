@@ -5,15 +5,18 @@ class Counter extends Component {
         count: 0
     };
     render(){
-        let classes = "badge m-2 badge";
-        classes += (this.state.count === 0) ? "warning" : "primary";
         return(
             <div>
-                <span className="{classes}">{this.formatCounter()}</span>
+                <span className="{this.getBadgeClasses()}">{this.formatCounter()}</span>
                 <button className="btn btn-secondary btn-sm">Increment</button>
             </div>
         );
 }
+
+    getBadgeClasses() {
+        let classes = "badge m-2 badge";
+        classes += (this.state.count === 0) ? "warning" : "primary";
+    }
 
 formatCounter(){
     const { count } = this.state;
