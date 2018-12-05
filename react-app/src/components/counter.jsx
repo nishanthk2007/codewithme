@@ -7,7 +7,7 @@ class Counter extends Component {
     };
 
     handleIncrement(){
-        console.log("clicked on increment", this.state.count); //will give undefind
+        console.log("clicked on increment", this); //will give undefind
     }
     
     render(){
