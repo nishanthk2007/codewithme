@@ -37,6 +37,7 @@ class Counter extends Component {
             <div>
                 <span className={this.getBadgeClasses()}>{this.formatCounter()}</span>
                 {/* <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button> */}
+                
                 <button onClick={() => this.handleIncrement(product)} className="btn btn-secondary btn-sm">Increment</button>
                 <div>
                 {this.state.tags.length === 0 && "Please add tags!"}
