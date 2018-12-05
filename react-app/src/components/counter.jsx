@@ -17,7 +17,10 @@ class Counter extends Component {
 
     //Instead of writing constructor and method to get object use lambda expressions
     //arrow functions don't  remaind this keyword they will inherit it
-    handleIncrement= () => { console.log("clicked on increment", this)}
+    handleIncrement= () => { 
+        console.log("clicked on increment", this);
+        this.setState({count: this.state.count + 1});
+    }
     
     render(){
         return(
