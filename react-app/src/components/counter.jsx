@@ -7,14 +7,14 @@ class Counter extends Component {
     };
 
     handleIncrement(){
-        console.log("clicked on increment");
+        console.log("clicked on increment", this.state.count); //will give undefind
     }
     
     render(){
         return(
             <div>
                 <span className={this.getBadgeClasses()}>{this.formatCounter()}</span>
-                <button className="btn btn-secondary btn-sm">Increment</button>
+                <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
                 <div>
                 {this.state.tags.length === 0 && "Please add tags!"}
                 {this.renderTags()}
