@@ -42,7 +42,7 @@ class Counter extends Component {
     //Instead of above we can write arrow function in button tag directly
 
     render(){
-        console.log("props",this.props);
+        console.log("props in counter component: ",this.props);
         return(
             <div>
                 <span>{this.props.children}</span>
