@@ -4,6 +4,7 @@ import './App.css';
 // import Movies from './components/movies';
 import NavBar from './components/navbar';
 import Counters from './components/counters';
+import Movies from './components/movies';
 
 class App extends Component {
 
@@ -21,9 +22,16 @@ class App extends Component {
       // console.log("counters array: ",JSON.stringify(counters));
       const index = counters.indexOf(counter);
       // console.log("index: ",index)
-      counters[index].value ++;
+      counters[index].value++;
       this.setState({counters});
   };
+
+  handleDecrement = counter => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index].value--;
+    this.setState({counters})
+  }
 
   handleDelete = counterId =>{
       const counters = this.state.counters.filter(c => c.id !== counterId);
@@ -45,8 +53,12 @@ class App extends Component {
         <Counters 
         onReset={this.handleReset} 
         onIncrement={this.handleIncrement} 
+        onDecrement={this.handleDecrement}
         onDelete={this.handleDelete} 
         counters={this.state.counters}/>
+      </main>
+      <main className="containter">
+      <Movies/>
       </main>
       </React.Fragment>
     );
