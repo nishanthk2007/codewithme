@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 // import Counters from './components/counters';
 
+console.log("SUPERMAN ",process.env.REACT_APP_NAME);
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
