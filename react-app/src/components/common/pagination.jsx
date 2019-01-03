@@ -1,29 +1,35 @@
 import React from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const Pagination = props =>{
+
+    const { itemsCount, pageSize, onPageChange, currentPage } = props;
+    const pageCount = Math.ceil(itemsCount / pageSize);
+
+    if(pageCount == 1) return null;
+    const  pages = _.range(1, pageCount + 1);
+
     return (
         <React.Fragment>
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
-                    <li className="page-item">
-                    <a className="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span className="sr-only">Previous</span>
-                    </a>
-                    </li>
-                    <li className="page-item"><a className="page-link" href="#">1</a></li>
-                    <li className="page-item"><a className="page-link" href="#">2</a></li>
-                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                    <li className="page-item">
-                    <a className="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span className="sr-only">Next</span>
-                    </a>
-                    </li>
+                {pages.map(page => (
+                    <li key={page} className={ page === currentPage ? "page-item active" : "page-item"}>
+                    <a className="page-link" onClick={() => onPageChange(page)}>{page}</a>
+                </li>
+                ))}
                 </ul>
             </nav>
         </React.Fragment>
     );
 }
+
+Pagination.propTypes ={
+    itemsCount: PropTypes.number.isRequired,
+    pageSize: PropTypes.number.isRequired, 
+    currentPage: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired
+};
 
 export default Pagination;
