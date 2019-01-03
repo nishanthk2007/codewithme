@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import { getMovies } from '../services/fakeMovieService';
+import ListGroup from './common/listGroup';
 import Like from './common/like';
 import Pagination from './common/pagination';
+import { getMovies } from '../services/fakeMovieService';
+import { getGenres } from '../services/fakeGenreService';
+import { pagniate }  from '../utils/paginate';
 
 class Movies extends Component{
     state = {
-        movies: getMovies(),
-        pageSize: 4
+        movies: [],
+        pageSize: 4,
+        currentPage: 1,
+        genres: []
         // count: getMovies().length
+    }
+
+    componentDidMount(){
+        const genres = [{name: "All Genres"}, ...getGenres()]
+        this.setState({ movies: getMovies(), genres});
     }
 
     //using id and deleteMovie service
@@ -35,15 +45,36 @@ class Movies extends Component{
     }
 
     handlePageChange = page =>{
-        
+        this.setState({currentPage: page})
+    }
+
+    handleGenreSelect = genre =>{
+        this.setState({ selectedGenre: genre, currentPage: 1 })
+        console.log("genere: ", genre);
     }
 
     render(){
         const { length: count } = this.state.movies;
+        const { pageSize, currentPage, selectedGenre, movies: allMovies } = this.state;
+
         if(count === 0) return <p>There are no movies in the database</p>
+
+        const filteredMovies = selectedGenre && selectedGenre._id 
+        ? allMovies.filter(m => m.genre._id === m.selectedGenre._id) 
+        : allMovies;
+        const movies = pagniate(filteredMovies, currentPage, pageSize);
+
         return(
-            <React.Fragment>
-                            <p>Showing {count} moives in the database</p>
+            <div className='row'>
+            <div className="col-3">
+            <ListGroup 
+            items={this.state.genres}
+            selectedItem={this.state.selectedGenre}
+            onItemSelect={this.handleGenreSelect}
+            />
+            </div>
+            <div className="col">
+            <p>Showing {filteredMovies.length} moives in the database</p>
             <table className="table">
             <thead>
                 <tr>
@@ -55,7 +86,7 @@ class Movies extends Component{
                 </tr>
             </thead>
             <tbody>
-                    {this.state.movies.map(movie => (
+                    {movies.map(movie => (
                         <tr  key={movie._id}>
                         <td>{movie.title}</td>
                         <td>{movie.genre.name}</td>
@@ -69,8 +100,13 @@ class Movies extends Component{
                     ))}
             </tbody>
             </table>
-            <Pagination itemsCount={count} pageSize={this.state.pageSize} onPageChange={this.handlePageChange}/>
-            </React.Fragment>
+            <Pagination 
+            itemsCount={filteredMovies.length} 
+            pageSize={pageSize} 
+            onPageChange={this.handlePageChange}
+            currentPage={currentPage}/>
+            </div>
+            </div>
         );
     }
 }
